@@ -1,6 +1,8 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@ant-design/icons': ^4.7.0
+  '@types/node': ^17.0.22
   '@types/react': ^17.0.33
   '@types/react-dom': ^17.0.10
   '@typescript-eslint/eslint-plugin': ^5.14.0
@@ -19,12 +21,14 @@ specifiers:
   vite: ^2.8.0
 
 dependencies:
+  '@ant-design/icons': 4.7.0_react-dom@17.0.2+react@17.0.2
   antd: 4.19.2_react-dom@17.0.2+react@17.0.2
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-router-dom: 6.2.2_react-dom@17.0.2+react@17.0.2
 
 devDependencies:
+  '@types/node': 17.0.22
   '@types/react': 17.0.40
   '@types/react-dom': 17.0.13
   '@typescript-eslint/eslint-plugin': 5.14.0_e3f5f4efe2bd492e36eb6c1c619dfc98
@@ -444,6 +448,10 @@ packages:
 
   /@types/json-schema/7.0.9:
     resolution: {integrity: sha512-qcUXuemtEu+E5wZSJHNxUXeCZhAfXKQ41D+duX+VYPde7xyEVZci+/oXKJL13tnRs9lR2pr4fod59GT6/X1/yQ==}
+    dev: true
+
+  /@types/node/17.0.22:
+    resolution: {integrity: sha512-8FwbVoG4fy+ykY86XCAclKZDORttqE5/s7dyWZKLXTdv3vRy5HozBEinG5IqhvPXXzIZEcTVbuHlQEI6iuwcmw==}
     dev: true
 
   /@types/prop-types/15.7.4:

@@ -1,14 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {BrowserRouter} from "react-router-dom"
-import App from "./containers/App"
+import React from "react"
+import ReactDOM from "react-dom"
+import Page from "./Page"
 import "antd/dist/antd.css"
+import "@/style/global.less"
 
 ReactDOM.render(
-  <React.StrictMode>
-      <BrowserRouter>
-          <App/>
-      </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <Page />
+    </React.StrictMode>,
+    document.getElementById("root")
 )
