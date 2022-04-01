@@ -1,31 +1,49 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined, UploadOutlined, UserOutlined, VideoCameraOutlined } from "@ant-design/icons"
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons"
 import { Layout, Menu } from "antd"
 import React, { useState } from "react"
+import { Route, Routes, useLocation } from "react-router-dom"
+import Dashboard from "@/screen/Dashboard/Dashboard"
 import "./app.less"
 
 const { Header, Content, Sider } = Layout
 
-const App: React.FC = () => {
+const menus = [
+    {
+        title: "工作台",
+        key: "/app/dashboard"
+    },
+    {
+        title: "权限管理",
+        key: "/app/role"
+    }
+]
+
+export type IMenuClickEvent = {
+    key: string
+    keyPath: string[]
+}
+
+const App: React.FC = props => {
+    const location = useLocation()
+
     const [collapsed, setCollapsed] = useState(false)
 
     const onCollapse = (): void => {
         setCollapsed(!collapsed)
     }
 
+    const sysMenuChange = (val: {}) => {
+        console.log(val)
+    }
+
     return (
         <Layout style={{ height: "100vh" }}>
-            <Sider width={250} trigger={null} collapsible collapsed={collapsed}>
+            <Sider width={250} trigger={null} collapsible collapsed={collapsed} theme="dark">
                 <div className="logo" />
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={["1"]}>
-                    <Menu.Item key="1" icon={<UserOutlined />}>
-                        nav 1
-                    </Menu.Item>
-                    <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-                        nav 2
-                    </Menu.Item>
-                    <Menu.Item key="3" icon={<UploadOutlined />}>
-                        nav 3
-                    </Menu.Item>
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]} onClick={sysMenuChange}>
+                    {menus.map(item => (
+                        <Menu.Item key={item.key}>{item.title}</Menu.Item>
+                    ))}
                 </Menu>
             </Sider>
             <Layout className="site-layout">
@@ -43,7 +61,9 @@ const App: React.FC = () => {
                         minHeight: 280
                     }}
                 >
-                    Content
+                    <Routes>
+                        <Route path="dashboard" element={<Dashboard />}></Route>
+                    </Routes>
                 </Content>
             </Layout>
         </Layout>
