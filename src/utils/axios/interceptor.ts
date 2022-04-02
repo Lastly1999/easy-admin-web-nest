@@ -14,7 +14,7 @@ class HttpInterceptor {
         this.axiosInterceptors = config.interceptor
         // 请求拦截
         this.axiosInstance.interceptors.request.use(this.axiosInterceptors.requestInterceptors, this.axiosInterceptors.requestInterceptorsCatch)
-        // 相应拦截
+        // 响应拦截
         this.axiosInstance.interceptors.response.use(this.axiosInterceptors.responseInterceptors, this.axiosInterceptors.responseInterceptorsCatch)
     }
 
@@ -34,7 +34,7 @@ class HttpInterceptor {
         return this.httpRequest<K>({ method: "POST", url, data })
     }
 
-    get<T = any, K = any>(url: string, data: T) {
+    get<T = any, K = any>(url: string, data?: T) {
         return this.httpRequest<K>({ method: "GET", url, data })
     }
 

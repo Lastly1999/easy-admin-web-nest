@@ -7,7 +7,7 @@ export type NotificationOption = {
 }
 
 export const openNotification = (options: NotificationOption) => {
-    notification[options.type]({
+    return notification[options.type]({
         message: options.message,
         description: options.description
     })
