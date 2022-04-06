@@ -7,15 +7,16 @@ import { loginAction, getGraphicCode } from "@/services/api/auth"
 import { ILoginForm } from "@/services/model/auth"
 import { useDispatch } from "react-redux"
 import "./login.less"
+import { setToken } from "@/redux/auth"
 
 export type IFormOptions = {
     userName: string
     passWord: string
-    code: string
+    captchaCode: string
 }
 
 export type ILoginFormOptions = {
-    codeAuth: string
+    captchaId: string
 } & IFormOptions
 
 export type ILoginFormState = {
@@ -30,8 +31,8 @@ const Login: React.FC = () => {
     const [loginForm, setLoginForm] = useState<ILoginFormState>({
         userName: "",
         passWord: "",
-        codeAuth: "",
-        code: "",
+        captchaCode: "",
+        captchaId: "",
         codeBase: ""
     })
 
@@ -42,18 +43,21 @@ const Login: React.FC = () => {
     // 获取图形验证码
     const getGraphic = async () => {
         const { data } = await getGraphicCode()
-        setLoginForm({ ...loginForm, codeBase: data.cap, codeAuth: data.captchaId })
+        setLoginForm({ ...loginForm, codeBase: data.cap, captchaId: data.captchaId })
     }
 
     // 登录提交
     const onFinish = async (values: IFormOptions) => {
         if (values) {
-            const params: ILoginFormOptions = { ...values, codeAuth: loginForm.codeAuth }
-            const { code } = await loginAction(params)
-            if (code === 200) {
-                navigate("/app/dashboard")
-                openNotification({ type: "success", message: "登录成功", description: "可以开始为所欲为啦！" })
-            } else {
+            try {
+                const params: ILoginFormOptions = { ...values, captchaId: loginForm.captchaId }
+                const { code, data } = await loginAction(params)
+                if (code === 200) {
+                    dispatch(setToken(data.accessToken))
+                    navigate("/app/dashboard")
+                    openNotification({ type: "success", message: "登录成功", description: "可以开始为所欲为啦！" })
+                }
+            } finally {
                 getGraphic()
             }
         }
@@ -74,8 +78,8 @@ const Login: React.FC = () => {
                     <Form.Item name="passWord" rules={[{ required: true, message: "请输入密码!" }]}>
                         <Input.Password prefix={<UserOutlined />} />
                     </Form.Item>
-                    <Form.Item name="code" rules={[{ required: true, message: "请输入图形验证码!" }]}>
-                        <Input prefix={<UserOutlined />} suffix={<div className="cap-code" dangerouslySetInnerHTML={{ __html: loginForm.codeBase }}></div>} />
+                    <Form.Item name="captchaCode" rules={[{ required: true, message: "请输入图形验证码!" }]}>
+                        <Input prefix={<UserOutlined />} suffix={<div className="cap-code" dangerouslySetInnerHTML={{ __html: loginForm.codeBase }} onClick={getGraphic}></div>} />
                     </Form.Item>
                     <Form.Item name="remember" valuePropName="checked">
                         <Checkbox style={{ color: "#fff" }}>记住我</Checkbox>

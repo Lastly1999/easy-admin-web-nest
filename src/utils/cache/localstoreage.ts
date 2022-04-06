@@ -1,6 +1,6 @@
-export type ISetCacheOption<T> = {
+export type ISetCacheOption = {
     key: string
-    data: T
+    data: string
 }
 
 /**
@@ -8,10 +8,10 @@ export type ISetCacheOption<T> = {
  * @param config
  * @returns
  */
-export const setLocalCache = <T>(config: ISetCacheOption<T>) => {
+export const setLocalCache = (config: ISetCacheOption) => {
     return new Promise((resolve, reject) => {
         try {
-            localStorage.setItem(config.key, JSON.stringify(config.data))
+            localStorage.setItem(config.key, config.data)
             resolve(null)
         } catch (err) {
             reject(err)
@@ -27,7 +27,7 @@ export const setLocalCache = <T>(config: ISetCacheOption<T>) => {
 export const getLocalCache = (key: string) => {
     return new Promise((resolve, reject) => {
         try {
-            const cacheData = localStorage.getItem(key)
+            const cacheData = JSON.stringify(localStorage.getItem(key))
             resolve(cacheData)
         } catch (err) {
             reject(err)

@@ -1,5 +1,6 @@
 export type IAuthState = {
     token: string | null
+    authMenus: Array<any>
 }
 
 export type IAction = {
