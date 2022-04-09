@@ -7,9 +7,7 @@ export type NotificationOption = {
     description: string
 }
 
-export type MessageOptions = {
-    
-} & ArgsProps
+export type MessageOptions = {} & ArgsProps
 
 export const openNotification = (options: NotificationOption) => {
     return notification[options.type]({
