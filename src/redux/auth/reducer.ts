@@ -1,4 +1,4 @@
-import { GET_AUTH_MENUS, SET_TOKEN } from "./constants"
+import { SET_AUTH_MENUS, SET_TOKEN } from "./constants"
 import { IAction, IAuthState } from "./types"
 
 const authState: IAuthState = {
@@ -11,11 +11,11 @@ const authReducer = (state = authState, actions: IAction): IAuthState => {
         case SET_TOKEN:
             localStorage.setItem("accessToken", actions.payload)
             return { ...state, token: actions.payload }
-        case GET_AUTH_MENUS:
+        case SET_AUTH_MENUS:
             return { ...state, authMenus: actions.payload }
         default:
             return state
-    }
+    } 
 }
 
 export default authReducer

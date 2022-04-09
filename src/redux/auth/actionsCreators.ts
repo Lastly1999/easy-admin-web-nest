@@ -1,8 +1,12 @@
-import { ThunkAction } from "redux-thunk"
-import { getSysRoles } from "@/services/api/role"
-import { setSysMenus } from "./actions"
+import { SET_AUTH_MENUS, SET_TOKEN } from "./constants"
+import { IAction } from "./types"
 
-export const feachSystemMenus: ThunkAction<Promise<any>, any, any, any> = async (dispatch) => {
-    const result = await getSysRoles()
-    dispatch(setSysMenus(result.data))
-}
+export const setToken = (payload: string): IAction => ({
+    type: SET_TOKEN,
+    payload
+})
+
+export const setAuthMenus = (payload: any) => ({
+    type: SET_AUTH_MENUS,
+    payload
+})
