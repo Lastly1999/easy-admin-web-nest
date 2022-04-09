@@ -6,8 +6,8 @@ import { openNotification } from "@/utils/antd/antd"
 import { loginAction, getGraphicCode } from "@/services/api/auth"
 import { ILoginForm } from "@/services/model/auth"
 import { useDispatch } from "react-redux"
-import "./login.less"
 import { setToken } from "@/redux/auth"
+import "./login.less"
 
 export type IFormOptions = {
     userName: string

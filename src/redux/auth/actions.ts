@@ -1,17 +1,13 @@
-import { GET_AUTH_MENUS, SET_TOKEN } from "./constants"
-import { IAction } from "./types"
-import { getSysRoles } from "@/services/api/role"
+import { Dispatch } from "react"
+import { setAuthMenus } from "./actionsCreators"
+import { getSystemRoleMenus } from "@/services/api/role"
 
-export const setToken = (payload: string): IAction => ({
-    type: SET_TOKEN,
-    payload
-})
+export type ISystemMenus = {
+    title: string
+    key: string
+}
 
-export const getAuthMenus = async () => {
-    const result = await getSysRoles()
-    console.log(result)
-    return {
-        type: GET_AUTH_MENUS,
-        payload: result.data
-    }
+export async function feachSystemMenus(dispatch: Dispatch<any>) {
+    const result = await getSystemRoleMenus()
+    dispatch(setAuthMenus(result.data))
 }

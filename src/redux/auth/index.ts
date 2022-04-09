@@ -1,5 +1,5 @@
 import authReducer from "./reducer"
-import { setToken } from "./actions"
+import { setToken } from "./actionsCreators"
 
 export { setToken }
 

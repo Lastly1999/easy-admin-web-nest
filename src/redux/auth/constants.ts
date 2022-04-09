@@ -1,2 +1,2 @@
 export const SET_TOKEN = "SET_TOKEN"
-export const GET_AUTH_MENUS = "GET_AUTH_MENUS"
+export const SET_AUTH_MENUS = "SET_AUTH_MENUS"
