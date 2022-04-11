@@ -6,7 +6,7 @@ import { openNotification } from "@/utils/antd/antd"
 import { loginAction, getGraphicCode } from "@/services/api/auth"
 import { ILoginForm } from "@/services/model/auth"
 import { useDispatch } from "react-redux"
-import { setToken } from "@/redux/auth"
+// import { setToken } from "@/redux/auth"
 import "./login.less"
 
 export type IFormOptions = {
@@ -53,7 +53,7 @@ const Login: React.FC = () => {
                 const params: ILoginFormOptions = { ...values, captchaId: loginForm.captchaId }
                 const { code, data } = await loginAction(params)
                 if (code === 200) {
-                    dispatch(setToken(data.accessToken))
+                    // dispatch(setToken(data.accessToken))
                     navigate("/app/dashboard")
                     openNotification({ type: "success", message: "登录成功", description: "可以开始为所欲为啦！" })
                 }
