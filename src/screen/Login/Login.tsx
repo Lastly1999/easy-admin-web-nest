@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react"
 import { Form, Input, Button, Checkbox } from "antd"
 import { useNavigate } from "react-router-dom"
 import { UserOutlined } from "@ant-design/icons"
-import { openNotification } from "@/utils/antd/antd"
-import { loginAction, getGraphicCode } from "@/services/api/auth"
+import { getGraphicCode } from "@/services/api/auth"
 import { ILoginForm } from "@/services/model/auth"
-import { useDispatch } from "react-redux"
-// import { setToken } from "@/redux/auth"
+import { useDispatch, useSelector } from "react-redux"
 import "./login.less"
+import { fetchLoginAction } from "@/redux/actions/authActions"
+import { FETCH_LOGIN_ACTION } from "@/redux/actionTypes/authActionTypes"
+import { IRootState } from "@/redux"
 
 export type IFormOptions = {
     userName: string
@@ -24,9 +25,11 @@ export type ILoginFormState = {
 } & ILoginForm
 
 const Login: React.FC = () => {
-    const dispatch = useDispatch()
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const storeState = useSelector((state: IRootState) => state.authReducer)
 
     const [loginForm, setLoginForm] = useState<ILoginFormState>({
         userName: "",
@@ -49,17 +52,20 @@ const Login: React.FC = () => {
     // 登录提交
     const onFinish = async (values: IFormOptions) => {
         if (values) {
-            try {
-                const params: ILoginFormOptions = { ...values, captchaId: loginForm.captchaId }
-                const { code, data } = await loginAction(params)
-                if (code === 200) {
-                    // dispatch(setToken(data.accessToken))
-                    navigate("/app/dashboard")
-                    openNotification({ type: "success", message: "登录成功", description: "可以开始为所欲为啦！" })
-                }
-            } finally {
-                getGraphic()
-            }
+            const params: ILoginFormOptions = { ...values, captchaId: loginForm.captchaId }
+            dispatch(fetchLoginAction(params))
+            // navigate("/app/dashboard")
+            // try {
+            //     const params: ILoginFormOptions = { ...values, captchaId: loginForm.captchaId }
+            //     const { code, data } = await loginAction(params)
+            //     if (code === 200) {
+            //         // dispatch(setToken(data.accessToken))
+            //         navigate("/app/dashboard")
+            //         openNotification({ type: "success", message: "登录成功", description: "可以开始为所欲为啦！" })
+            //     }
+            // } finally {
+            //     getGraphic()
+            // }
         }
     }
 

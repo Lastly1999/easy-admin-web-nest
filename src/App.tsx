@@ -44,8 +44,8 @@ const App: React.FC = (props: IAppProps) => {
                     }}
                 >
                     <Routes>
-                        <Route path="dashboard" element={<Dashboard />} />
-                        <Route path="role/role" element={<RolePanel />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/role/role" element={<RolePanel />} />
                     </Routes>
                 </Content>
             </Layout>

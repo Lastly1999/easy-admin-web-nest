@@ -1,7 +1,9 @@
-import { takeEvery } from "redux-saga/effects"
+import {takeEvery} from "redux-saga/effects"
+import { FETCH_LOGIN_ACTION } from "@/redux/actionTypes/authActionTypes"
+import { fetchLoginAction } from "@/redux/sagas/authSagas"
 
-export function* defSages(){
-    yield takeEvery("FUCK_REDUX",function* (){
-        console.log('FUCK_REDUX')
-    })
+export function* appSagas(){
+    yield takeEvery(FETCH_LOGIN_ACTION,fetchLoginAction)
 }
+
+export default appSagas
