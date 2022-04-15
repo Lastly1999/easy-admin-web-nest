@@ -43,7 +43,7 @@ const SystemMenu: React.FC = () => {
         <Menu theme="dark" mode="inline" defaultSelectedKeys={[location.pathname]} onClick={sysMenuChange}>
             {menus.map(item =>
                 item.children.length > 0 ? (
-                    <SubMenu title={item.title}>
+                    <SubMenu title={item.title} key={item.key}>
                         {item.children.map(cItem => (
                             <Menu.Item key={cItem.key}>{cItem.title}</Menu.Item>
                         ))}
