@@ -1,16 +1,16 @@
-import { ILoginFormOptions } from "@/screen/Login/Login"
-import { createActions } from "redux-actions"
+import { createAction } from "redux-actions"
 
-export enum AuthActionTypes {
-    SET_AUTH_INFO = "SET_AUTH_INFO",
-    FETCH_LOGIN_ACTION = "FETCH_LOGIN_ACTION"
+export const AuthActionTypes = {
+    SET_AUTH_INFO: "SET_AUTH_INFO",
+    FETCH_LOGIN_ACTION: "FETCH_LOGIN_ACTION",
+    UPDATE_AUTH_INFO: "UPDATE_AUTH_INFO"
 }
 
-const authActions = createActions({
-    // 设置授权信息
-    [AuthActionTypes.SET_AUTH_INFO]: (token: string) => token,
-    // 登录授权
-    [AuthActionTypes.FETCH_LOGIN_ACTION]: (payload: ILoginFormOptions) => payload
-})
+// 设置授权信息
+export const setAuthInfo = createAction(AuthActionTypes.SET_AUTH_INFO)
 
-export default authActions
+// 登录授权表
+export const fetchLoginAction = createAction(AuthActionTypes.FETCH_LOGIN_ACTION)
+
+// 更新授权信息
+export const updateAuthInfo = createAction(AuthActionTypes.UPDATE_AUTH_INFO)
