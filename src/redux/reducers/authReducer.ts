@@ -13,7 +13,7 @@ const authState: IAuthState = {
 }
 
 export default createReducers({
-    [combineActions(AuthActionTypes.FETCH_LOGIN_ACTION)]: (state: IRootState, payload: IAction<ILoginFormOptions>) => ({
+    [combineActions(AuthActionTypes.FETCH_LOGIN_ACTION): (state: IRootState, payload: IAction<ILoginFormOptions>) => ({
         ...state,
         payload
     }),
