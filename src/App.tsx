@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Route, Routes } from "react-router-dom"
+import { Route,Switch,useRouteMatch } from "react-router-dom"
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons"
 import { Layout } from "antd"
 
@@ -17,7 +17,7 @@ export type IAppProps = {
     children?: React.ReactNode
 }
 
-const App: React.FC = (props: IAppProps) => {
+const App: React.FC<IAppProps> = (props) => {
     const [collapsed, setCollapsed] = useState(false)
 
     const onCollapse = (): void => {
@@ -39,13 +39,14 @@ const App: React.FC = (props: IAppProps) => {
                 <Content
                     style={{
                         overflowY: "auto",
+                        padding:"10px",
                         boxSizing: "border-box"
                     }}
                 >
-                    <Routes>
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/role/role" element={<RolePanel />} />
-                    </Routes>
+                    <Switch>
+                        <Route path={`/app/dashboard`} component={Dashboard} />
+                        <Route path={`/app/role/role`} component={RolePanel} />
+                    </Switch>
                 </Content>
             </Layout>
         </Layout>

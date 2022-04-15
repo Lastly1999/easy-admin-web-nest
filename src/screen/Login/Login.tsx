@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { Form, Input, Button, Checkbox } from "antd"
-import { useNavigate } from "react-router-dom"
+import { useLocation } from "react-router-dom"
 import { UserOutlined } from "@ant-design/icons"
 import { getGraphicCode } from "@/services/api/auth"
 import { ILoginForm } from "@/services/model/auth"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import "./login.less"
-import { fetchLoginAction } from "@/redux/actions/authActions"
-import { FETCH_LOGIN_ACTION } from "@/redux/actionTypes/authActionTypes"
-import { IRootState } from "@/redux"
 
 export type IFormOptions = {
     userName: string
@@ -26,10 +23,10 @@ export type ILoginFormState = {
 
 const Login: React.FC = () => {
 
-    const navigate = useNavigate()
+    const location = useLocation()
     const dispatch = useDispatch()
 
-    const storeState = useSelector((state: IRootState) => state.authReducer)
+    // const storeState = useSelector((state: IRootState) => state.authReducer)
 
     const [loginForm, setLoginForm] = useState<ILoginFormState>({
         userName: "",
@@ -53,7 +50,7 @@ const Login: React.FC = () => {
     const onFinish = async (values: IFormOptions) => {
         if (values) {
             const params: ILoginFormOptions = { ...values, captchaId: loginForm.captchaId }
-            dispatch(fetchLoginAction(params))
+            
             // navigate("/app/dashboard")
             // try {
             //     const params: ILoginFormOptions = { ...values, captchaId: loginForm.captchaId }

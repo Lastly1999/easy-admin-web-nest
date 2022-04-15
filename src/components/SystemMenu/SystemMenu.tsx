@@ -1,7 +1,7 @@
 import { Menu } from "antd"
 import SubMenu from "antd/lib/menu/SubMenu"
 import React from "react"
-import { useNavigate } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 
 export interface MenuInfo {
     key: string
@@ -33,10 +33,10 @@ const menus = [
 ]
 
 const SystemMenu: React.FC = () => {
-    const navigate = useNavigate()
+    const history = useHistory()
 
     const sysMenuChange = (val: MenuInfo) => {
-        navigate(val.key)
+        history.push(val.key)
     }
 
     return (

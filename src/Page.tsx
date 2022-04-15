@@ -1,16 +1,17 @@
-import React, { useEffect } from "react"
+import React from "react"
 import Login from "@/screen/Login/Login"
 import App from "./App"
-import { Routes, Route, Navigate, BrowserRouter as Router } from "react-router-dom"
+import { Route, Router, Switch,Redirect } from "react-router-dom"
+import history from "./history"
 
 const Page: React.FC = () => {
     return (
-        <Router>
-            <Routes>
-                <Route path="/login" element={<Login />} />
-                <Route path="/app/*" element={<App />}></Route>
-                <Route path="*" element={<Navigate replace to="/login" />}></Route>
-            </Routes>
+        <Router history={history}>
+            <Switch>
+                <Route path="/login" component={Login} />
+                <Route exact path="/app/*" component={App}/>
+                <Redirect path="*" to="/login"></Redirect>
+            </Switch>
         </Router>
     )
 }

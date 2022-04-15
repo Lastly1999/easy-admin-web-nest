@@ -5,7 +5,7 @@ import "./rolePanelQuery.less"
 const RolePanelQuery: React.FC = () => {
 
     const onSearch = () => {
-
+        
     }
 
     return <div className="role-panel-query">
