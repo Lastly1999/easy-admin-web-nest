@@ -1,6 +1,11 @@
+import { Card, Col, Row } from "antd"
+import React, { useEffect } from "react"
+import LineCharts from "./components/LineCharts/LineCharts"
 import React, { useState } from "react"
 // style
 import "./dashboard.less"
+import { useSelector } from "react-redux"
+import { IRootState } from "@/redux"
 // components
 import { Card, Col, Row, Tabs } from "antd"
 import LineCharts from "./components/LineCharts/LineCharts"
@@ -30,6 +35,14 @@ const chartsComps: IChartsCompOption[] = [
         compInstall: <StackingAreaCharts />
     }
 ]
+
+const Dashboard: React.FC = () => {
+
+    const storeState = useSelector((state: IRootState) => state.authReducer)
+
+    useEffect(() => {
+        console.log(storeState)
+    })
 
 const Dashboard: React.FC<IDashboardpProps> = () => {
 
