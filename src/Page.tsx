@@ -3,14 +3,13 @@ import Login from "@/screen/Login/Login"
 import App from "./App"
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { feachSystemMenus } from "./redux/auth/actions"
 
 const Page: React.FC = () => {
 
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(feachSystemMenus)
+        // dispatch(feachSystemMenus)
     })
 
     return (

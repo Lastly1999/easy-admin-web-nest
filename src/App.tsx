@@ -30,7 +30,7 @@ const App: React.FC = (props: IAppProps) => {
                 <SystemMenu />
             </Sider>
             <Layout className="site-layout">
-                <Header className="site-layout-background" style={{ padding: 0 }}>
+                <Header className="site-layout-background site-layout-header" style={{ padding: 0 }}>
                     {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                         className: "trigger",
                         onClick: onCollapse
@@ -38,9 +38,8 @@ const App: React.FC = (props: IAppProps) => {
                 </Header>
                 <Content
                     style={{
-                        margin: "24px 16px",
-                        padding: 24,
-                        minHeight: 280
+                        overflowY: "auto",
+                        boxSizing: "border-box"
                     }}
                 >
                     <Routes>

@@ -1,9 +1,9 @@
-import thunk from "redux-thunk"
-import reducer from "./reducer"
-import { createStore, applyMiddleware } from "redux"
-import { IRootReducer } from "./reducer"
+import { applyMiddleware, createStore } from "redux"
 
-const store = createStore(reducer, applyMiddleware(thunk))
-export default store
+import createSagaMiddleware from "redux-saga"
+import rootReducer from "./reducers"
 
-export type { IRootReducer }
+// 使用redux-saga中间件
+const sagaMiddleware = createSagaMiddleware()
+
+export default createStore(rootReducer, {}, applyMiddleware(sagaMiddleware))
