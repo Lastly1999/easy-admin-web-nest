@@ -1,17 +1,17 @@
 export type ILoginForm = {
     userName: string
     passWord: string
-    captchaId: string
-    captchaCode: string
+    codeAuth:string
+    code: string
 }
 
 export type ILoginInfo = {
-    accessToken: string
+    token: string
 }
 
 export type IGraphicCodeInfo = {
-    cap: string
-    captchaId: string
+    codeBase: string
+    code: string
 }
 
 export type IRoleAuthMenus = {

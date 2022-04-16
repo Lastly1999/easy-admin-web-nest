@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react"
 import { Form, Input, Button, Checkbox } from "antd"
-import { useLocation } from "react-router-dom"
 import { UserOutlined } from "@ant-design/icons"
 import { getGraphicCode } from "@/services/api/auth"
 import { ILoginForm } from "@/services/model/auth"
-import { useDispatch } from "react-redux"
 import "./login.less"
+import { useDispatch } from "react-redux"
+import { fetchLoginAction } from "@/redux/actions/authActions"
 
 export type IFormOptions = {
     userName: string
     passWord: string
-    captchaCode: string
+    code: string
 }
 
 export type ILoginFormOptions = {
-    captchaId: string
+    codeAuth: string
 } & IFormOptions
 
 export type ILoginFormState = {
@@ -23,16 +23,13 @@ export type ILoginFormState = {
 
 const Login: React.FC = () => {
 
-    const location = useLocation()
     const dispatch = useDispatch()
-
-    // const storeState = useSelector((state: IRootState) => state.authReducer)
 
     const [loginForm, setLoginForm] = useState<ILoginFormState>({
         userName: "",
         passWord: "",
-        captchaCode: "",
-        captchaId: "",
+        codeAuth: "",
+        code: "",
         codeBase: ""
     })
 
@@ -43,14 +40,18 @@ const Login: React.FC = () => {
     // 获取图形验证码
     const getGraphic = async () => {
         const { data } = await getGraphicCode()
-        setLoginForm({ ...loginForm, codeBase: data.cap, captchaId: data.captchaId })
+        setLoginForm({ ...loginForm, codeBase: data.codeBase, codeAuth: data.code })
     }
 
     // 登录提交
     const onFinish = async (values: IFormOptions) => {
         if (values) {
-            const params: ILoginFormOptions = { ...values, captchaId: loginForm.captchaId }
-            
+            const params: ILoginFormOptions = { ...values, codeAuth: loginForm.codeAuth }
+            try {
+                dispatch(fetchLoginAction(params))
+            } catch (err) {
+                console.log(err)
+            }
             // navigate("/app/dashboard")
             // try {
             //     const params: ILoginFormOptions = { ...values, captchaId: loginForm.captchaId }
@@ -81,8 +82,10 @@ const Login: React.FC = () => {
                     <Form.Item name="passWord" rules={[{ required: true, message: "请输入密码!" }]}>
                         <Input.Password prefix={<UserOutlined />} />
                     </Form.Item>
-                    <Form.Item name="captchaCode" rules={[{ required: true, message: "请输入图形验证码!" }]}>
-                        <Input prefix={<UserOutlined />} suffix={<div className="cap-code" dangerouslySetInnerHTML={{ __html: loginForm.codeBase }} onClick={getGraphic}></div>} />
+                    <Form.Item name="code" rules={[{ required: true, message: "请输入图形验证码!" }]}>
+                        <Input prefix={<UserOutlined />} suffix={<div className="cap-code" onClick={getGraphic}>
+                            <img style={{ height: '30px' }} src={loginForm.codeBase} />
+                        </div>} />
                     </Form.Item>
                     <Form.Item name="remember" valuePropName="checked">
                         <Checkbox style={{ color: "#fff" }}>记住我</Checkbox>

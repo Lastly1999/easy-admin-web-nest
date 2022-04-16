@@ -7,7 +7,12 @@ export const AuthActionTypes = {
 }
 
 // 设置授权信息
-export const setAuthInfo = createAction(AuthActionTypes.SET_AUTH_INFO)
+export const setAuthInfo = createAction(AuthActionTypes.SET_AUTH_INFO, (token: string) => {
+    console.log(token)
+    return{
+        token
+    }
+})
 
 // 登录授权表
 export const fetchLoginAction = createAction(AuthActionTypes.FETCH_LOGIN_ACTION)

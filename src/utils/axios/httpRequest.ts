@@ -1,6 +1,7 @@
 import HttpInterceptor from "./interceptor"
 import { openNotification } from "@/utils/antd/antd"
 import { IJsonResult } from "@/types/global"
+import store from "@/redux"
 
 type IHttpHeadersOptions = {
     [index: string]: string | null
@@ -14,7 +15,8 @@ const httpRequest = new HttpInterceptor({
     timeout: Number(import.meta.env.VITE_APP_TIME_OUT),
     interceptor: {
         requestInterceptors: (config) => {
-            (config.headers as IHttpHeadersOptions)["authorization"] = localStorage.getItem("accessToken")
+            const storeState = store.getState();
+            (config.headers as IHttpHeadersOptions)["authorization"] = storeState.authReducer.token
             return config
         },
         requestInterceptorsCatch: eof => eof,
@@ -23,7 +25,8 @@ const httpRequest = new HttpInterceptor({
             return response
         },
         responseInterceptorsCatch: eof => {
-            handelHttpError(eof.response.data.message)
+            handelHttpError(eof.response.data.msg)
+            throw new Error(eof.response.data.msg);
         }
     }
 })
