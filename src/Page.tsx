@@ -1,14 +1,15 @@
 import React, { useEffect } from "react"
-import { useSelector } from "react-redux"
 import Login from "@/screen/Login/Login"
-import App from "./App"
-import { Route, Router, Switch, Redirect } from "react-router-dom"
 import history from "./history"
+import App from "./App"
+import { useDispatch, useSelector } from "react-redux"
+import { Route, Router, Switch, Redirect } from "react-router-dom"
 import { IRootState } from "@/redux"
-import { getRoleAuthMenus } from "@/services/api/auth"
-import { getSysIcons } from "@/services/api/sys"
+import { fetchSystemRoleMenus } from "./redux/actions/authActions"
 
 const Page: React.FC = () => {
+
+    const dispatch = useDispatch()
 
     const selection = useSelector((state: IRootState) => state)
 
@@ -16,13 +17,22 @@ const Page: React.FC = () => {
         console.log(selection.authReducer.token)
     }, [selection])
 
+    const initSystemApis = () => {
+        if (history.location.pathname !== "/login") {
+            if (!selection.authReducer.roleMenus) {
+                dispatch(fetchSystemRoleMenus())
+            }
+            // getRoleAuthMenus().then(res => {
+            //     console.log(res)
+            // })
+            // getSysIcons().then(res => {
+            //     console.log(res)
+            // })
+        }
+    }
+
     useEffect(() => {
-        getRoleAuthMenus().then(res => {
-            console.log(res)
-        })
-        getSysIcons().then(res => {
-            console.log(res)
-        })
+        initSystemApis()
     })
 
     return (

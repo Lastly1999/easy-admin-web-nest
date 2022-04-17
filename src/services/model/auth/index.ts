@@ -1,7 +1,9 @@
+import { IGlobalModel } from "../global"
+
 export type ILoginForm = {
     userName: string
     passWord: string
-    codeAuth:string
+    codeAuth: string
     code: string
 }
 
@@ -14,6 +16,9 @@ export type IGraphicCodeInfo = {
     code: string
 }
 
-export type IRoleAuthMenus = {
-    
-}
+export type IRolesSystemMenus = {
+    label: string
+    path: string
+    pId: number | null
+    icon: string | null
+} & IGlobalModel

@@ -1,5 +1,5 @@
 import httpRequest from "@/utils/axios/httpRequest"
-import { IGraphicCodeInfo, ILoginForm, ILoginInfo, IRoleAuthMenus } from "@/services/model/auth"
+import { IGraphicCodeInfo, ILoginForm, ILoginInfo, IRolesSystemMenus } from "@/services/model/auth"
 
 // 授权登录
 export const loginAction = (data: ILoginForm) => {
@@ -13,5 +13,5 @@ export const getGraphicCode = () => {
 
 // 获取角色系统菜单
 export const getRoleAuthMenus = () => {
-    return httpRequest.get<any, IRoleAuthMenus>("/auth/menu")
+    return httpRequest.get<any, IRolesSystemMenus>("/auth/menu")
 }
