@@ -5,7 +5,8 @@ import App from "./App"
 import { useDispatch, useSelector } from "react-redux"
 import { Route, Router, Switch, Redirect } from "react-router-dom"
 import { IRootState } from "@/redux"
-import { fetchSystemRoleMenus } from "./redux/actions/authActions"
+import { fetchSystemRoleMenus } from "@/redux/actions/authActions"
+import { fetchSystemIcons } from "@/redux/actions/systemActions"
 
 const Page: React.FC = () => {
 
@@ -22,12 +23,9 @@ const Page: React.FC = () => {
             if (!selection.authReducer.roleMenus) {
                 dispatch(fetchSystemRoleMenus())
             }
-            // getRoleAuthMenus().then(res => {
-            //     console.log(res)
-            // })
-            // getSysIcons().then(res => {
-            //     console.log(res)
-            // })
+            if (!selection.systemReducer.sysIcons) {
+                dispatch(fetchSystemIcons())
+            }
         }
     }
 

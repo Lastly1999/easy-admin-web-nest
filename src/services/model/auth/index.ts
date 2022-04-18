@@ -22,3 +22,4 @@ export type IRolesSystemMenus = {
     pId: number | null
     icon: string | null
 } & IGlobalModel
+

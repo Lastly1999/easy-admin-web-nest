@@ -8,7 +8,7 @@ import SystemMenu from "@/components/SystemMenu/SystemMenu"
 
 import Dashboard from "@/screen/Dashboard/Dashboard"
 import RolePanel from "@/screen/RolePanel/RolePanel"
-
+import RoleUser from "@/screen/RoleUser/RoleUser"
 import "./app.less"
 
 const { Header, Content, Sider } = Layout
@@ -46,6 +46,7 @@ const App: React.FC<IAppProps> = (props) => {
                     <Switch>
                         <Route path={`/app/dashboard`} component={Dashboard} />
                         <Route path={`/app/role/role`} component={RolePanel} />
+                        <Route path={`/app/role/user`} component={RoleUser} />
                     </Switch>
                 </Content>
             </Layout>

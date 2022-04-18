@@ -4,3 +4,11 @@ export interface IGlobalModel {
     updatedAt: string | null
     deletedAt: string | null
 }
+
+export interface IGlobalQueryModel {
+    pageSize:number
+    pageNum:number
+    keywords?:string | null
+    startTime?:string | null
+    endTime?:string| null
+}

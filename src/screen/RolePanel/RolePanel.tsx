@@ -8,10 +8,8 @@ interface Props { }
 const RolePanel: React.FC = ({ }: Props) => {
     return (
         <EasyContainer>
-            <div>
-                <RolePanelQuery></RolePanelQuery>
-                <RoleTable></RoleTable>
-            </div>
+            <RolePanelQuery></RolePanelQuery>
+            <RoleTable></RoleTable>
         </EasyContainer>
     )
 }

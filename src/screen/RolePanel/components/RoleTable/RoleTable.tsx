@@ -1,60 +1,52 @@
-import React from "react"
-import { Table } from "antd"
+import React, { useEffect, useState } from "react"
+import { Switch, Table } from "antd"
 import { ColumnsType } from "antd/lib/table"
+import { getSysRoles } from "@/services/api/role"
+import { IRoleListItem } from "@/services/model/role"
 
 type IRoleTableProps = {}
 
 const RoleTable: React.FC<IRoleTableProps> = (props) => {
 
+    const updateStatus = (status:boolean) => {
+        console.log(status)
+    }
+
     const columns: ColumnsType<any> = [
+        { title: '角色id', dataIndex: 'roleId', key: 'roleId' },
+        { title: '角色名称', dataIndex: 'roleName', key: 'roleName' },
+        { title: '角色别名', dataIndex: 'describe', key: 'describe' },
         {
-            title: 'Full Name',
-            width: 100,
-            dataIndex: 'name',
-            key: 'name',
-            fixed: 'left',
+            title: '启用状态', dataIndex: 'status', key: 'status', render: (status: boolean) => (
+                <Switch checkedChildren="开启" unCheckedChildren="关闭" defaultChecked={status} onChange={updateStatus}/>
+            )
         },
+        { title: '创建时间', dataIndex: 'createdAt', key: 'createdAt' },
+        { title: '最近更新时间', dataIndex: 'updatedAt', key: 'updatedAt' },
         {
-            title: 'Age',
-            width: 100,
-            dataIndex: 'age',
-            key: 'age',
-            fixed: 'left',
-        },
-        { title: 'Column 1', dataIndex: 'address', key: '1' },
-        { title: 'Column 2', dataIndex: 'address', key: '2' },
-        { title: 'Column 3', dataIndex: 'address', key: '3' },
-        { title: 'Column 4', dataIndex: 'address', key: '4' },
-        { title: 'Column 5', dataIndex: 'address', key: '5' },
-        { title: 'Column 6', dataIndex: 'address', key: '6' },
-        { title: 'Column 7', dataIndex: 'address', key: '7' },
-        { title: 'Column 8', dataIndex: 'address', key: '8' },
-        {
-            title: 'Action',
+            title: '编辑',
             key: 'operation',
             fixed: 'right',
             width: 100,
-            render: () => <a>action</a>,
+            render: () => <a>编辑</a>,
         },
     ]
 
-    const data = [
-        {
-            key: '1',
-            name: 'John Brown',
-            age: 32,
-            address: 'New York Park',
-        },
-        {
-            key: '2',
-            name: 'Jim Green',
-            age: 40,
-            address: 'London Park',
-        },
-    ]
+    // 角色列表
+    const [roleList, setRoleList] = useState<IRoleListItem[]>([])
+
+    // 请求角色列表
+    const fetchRoleList = async () => {
+        const ret = await getSysRoles()
+        if (ret.code === 200) setRoleList(ret.data.roles)
+    }
+
+    useEffect(() => {
+        fetchRoleList()
+    }, [])
 
     return (
-        <Table columns={columns} dataSource={data} />
+        <Table className="custom-table" columns={columns} dataSource={roleList} />
     )
 }
 

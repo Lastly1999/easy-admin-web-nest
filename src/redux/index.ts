@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from "redux"
 import createSagaMiddleware from "redux-saga"
-import rootReducer from "./reducers"
-import appSagas from "@/redux/sagas"
+import rootReducer from "@/redux/collectRedcuers"
+import appSagas from "./collectSagas"
 import { PersistConfig, persistReducer, persistStore } from "redux-persist"
 import storage from "redux-persist/es/storage/session"
 

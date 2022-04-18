@@ -2,6 +2,7 @@ import HttpInterceptor from "./interceptor"
 import { openNotification } from "@/utils/antd/antd"
 import { IJsonResult } from "@/types/global"
 import store from "@/redux"
+import history from "@/history"
 
 type IHttpHeadersOptions = {
     [index: string]: string | null
@@ -25,11 +26,21 @@ const httpRequest = new HttpInterceptor({
             return response
         },
         responseInterceptorsCatch: eof => {
+            if (eof.response.status === 401) {
+                jwtInvalidHandler(eof.response.status)
+            }
             handelHttpError(eof.response.data.msg)
             throw new Error(eof.response.data.msg);
         }
     }
 })
+
+const jwtInvalidHandler = (code: number) => {
+    if (code === 401) {
+        history.replace("/login")
+        sessionStorage.removeItem("persist:root")
+    }
+}
 
 const handelApiError = <T>(data: IJsonResult<T>) => {
     return openNotification({ type: "error", message: "温馨提示", description: data.msg })
