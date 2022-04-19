@@ -9,9 +9,7 @@ type IRolePanelQueryProps = {
 
 const RolePanelQuery: React.FC<IRolePanelQueryProps> = (props) => {
 
-    const onSearch = () => {
-
-    }
+    const onSearch = () => {}
 
     const addUser = () => {
         if (props.addUser) props.addUser()

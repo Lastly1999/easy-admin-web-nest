@@ -6,65 +6,46 @@ import { IRoleListItem } from "@/services/model/role"
 import { openMessage } from "@/utils/antd/antd"
 
 type IRoleTableProps = {
+    loading: boolean
+    data: IRoleListItem[]
     rowEdit: (id: number) => void
+    updateRowStatus: (roleId: number, status: boolean) => void
 }
 
 const RoleTable: React.FC<IRoleTableProps> = (props) => {
 
-    // 加载状态
-    const [tableLoading, setTableLoading] = useState<boolean>(false)
-
-    // 更新角色状态
     const updateStatus = async (roleId: number, status: boolean) => {
-        const openFlag = status ? 1 : 0
-        const { code } = await updateSysRoleStatus(roleId, openFlag)
-        if (code === 200) {
-            fetchRoleList()
-            openMessage({ type: "success", content: "修改状态成功！" })
-        }
+        props?.updateRowStatus(roleId, status)
     }
 
     const rowEdit = (data: IRoleListItem) => {
-        if (props.rowEdit) props.rowEdit(data.id)
+        props?.rowEdit(data.roleId)
+    }
+
+    const generateRowStatusSwitch = (status: boolean, data: IRoleListItem) => {
+        return (
+            <Switch checkedChildren="开启" unCheckedChildren="关闭" defaultChecked={status} onChange={(val: boolean) => updateStatus(data.roleId, val)} />
+        )
+    }
+
+    const generateRowEdit = (_: any, data: IRoleListItem) => {
+        return (
+            <a onClick={() => rowEdit(data)}>编辑</a>
+        )
     }
 
     const columns: ColumnsType<any> = [
         { title: '角色id', dataIndex: 'roleId', key: 'roleId' },
         { title: '角色名称', dataIndex: 'roleName', key: 'roleName' },
         { title: '角色别名', dataIndex: 'describe', key: 'describe' },
-        {
-            title: '启用状态', dataIndex: 'status', key: 'status', render: (status: boolean, data: IRoleListItem) => (
-                <Switch checkedChildren="开启" unCheckedChildren="关闭" defaultChecked={status} onChange={(val: boolean) => updateStatus(data.roleId, val)} />
-            )
-        },
+        { title: '启用状态', dataIndex: 'status', key: 'status', render: generateRowStatusSwitch },
         { title: '创建时间', dataIndex: 'createdAt', key: 'createdAt' },
         { title: '最近更新时间', dataIndex: 'updatedAt', key: 'updatedAt' },
-        {
-            title: '编辑',
-            key: 'operation',
-            fixed: 'right',
-            width: 100,
-            render: (_, data: IRoleListItem) => <a onClick={() => rowEdit(data)}>编辑</a>,
-        },
+        { title: '编辑', key: 'operation', fixed: 'right', width: 100, render: generateRowEdit },
     ]
 
-    // 角色列表
-    const [roleList, setRoleList] = useState<IRoleListItem[]>([])
-
-    // 请求角色列表
-    const fetchRoleList = async () => {
-        setTableLoading(true)
-        const ret = await getSysRoles()
-        if (ret.code === 200) setRoleList(ret.data.roles)
-        setTableLoading(false)
-    }
-
-    useEffect(() => {
-        fetchRoleList()
-    }, [])
-
     return (
-        <Table loading={tableLoading} className="custom-table" columns={columns} dataSource={roleList} />
+        <Table className="custom-table" loading={props.loading} columns={columns} dataSource={props.data} />
     )
 }
 
