@@ -7,6 +7,6 @@ export const getSysRoles = () => {
 }
 
 // 修改角色启用状态
-export const updateSysRoleStatus = () => {
-    return httpRequest.get<unknown, { roles: IRoleListItem[] }>("/role/status")
+export const updateSysRoleStatus = (roleId: number, status: 1 | 0) => {
+    return httpRequest.patch<null, null>(`/role/status/${roleId}/${status}`)
 }

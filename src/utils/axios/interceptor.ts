@@ -30,7 +30,7 @@ class HttpInterceptor {
         })
     }
 
-    post<T = any, K = any>(url: string, data: T) {
+    post<T = any, K = any>(url: string, data?: T) {
         return this.httpRequest<K>({ method: "POST", url, data })
     }
 
@@ -38,15 +38,15 @@ class HttpInterceptor {
         return this.httpRequest<K>({ method: "GET", url, data })
     }
 
-    patch<T = any, K = any>(url: string, data: T) {
+    patch<T = any, K = any>(url: string, data?: T) {
         return this.httpRequest<K>({ method: "PATCH", url, data })
     }
 
-    delete<T = any, K = any>(url: string, data: T) {
+    delete<T = any, K = any>(url: string, data?: T) {
         return this.httpRequest<K>({ method: "DELETE", url, data })
     }
 
-    put<T = any, K = any>(url: string, data: T) {
+    put<T = any, K = any>(url: string, data?: T) {
         return this.httpRequest<K>({ method: "PUT", url, data })
     }
 }
