@@ -5,3 +5,7 @@ export type IRoleListItem = {
     roleName: string
     status: boolean
 } & IGlobalModel
+
+export type IRoleInfo = {
+    
+}

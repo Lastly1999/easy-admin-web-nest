@@ -1,6 +1,5 @@
-import { getSysRoles } from "@/services/api/role"
 import { Button, Form, Input } from "antd"
-import React, { useEffect } from "react"
+import React from "react"
 import "./rolePanelQuery.less"
 
 type IRolePanelQueryProps = {

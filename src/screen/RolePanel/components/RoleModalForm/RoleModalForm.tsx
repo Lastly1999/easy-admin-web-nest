@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { Form, FormInstance, Input, Modal } from "antd"
 import { IFormRules } from "@/types/global"
+import { getSysRoleInfo } from "@/services/api/role"
 
 
 type IRoleModalFormProps = {
@@ -38,15 +39,18 @@ const RoleModalForm: React.FC<IRoleModalFormProps> = (props) => {
     }
 
     useEffect(() => {
-        if (!props.visible) {
-            setRoleModalForm({})
-            roleForm.resetFields()
+        const fetchSysRoleInfo = async () => {
+            if (props.roleId) {
+                const ret = await getSysRoleInfo(props.roleId)
+                setRoleModalForm(ret.data)
+            }
         }
-    }, [props.visible])
+        fetchSysRoleInfo()
+    }, [props.roleId])
 
     return (
-        <Modal title={props.title} centered visible={props.visible} onOk={onConfirm} onCancel={onCancel} width={600} >
-            <Form name="roleForm" scrollToFirstError form={roleForm} initialValues={roleModalForm} onFinish={onFinish} >
+        <Modal centered destroyOnClose title={props.title} visible={props.visible} onOk={onConfirm} onCancel={onCancel} width={600} >
+            <Form name="roleForm" scrollToFirstError form={roleForm} initialValues={roleModalForm} onFinish={onFinish} preserve={false}>
                 <Form.Item name="roleName" label="角色名称" rules={formRules.roleName}>
                     <Input placeholder="请输入角色名称" />
                 </Form.Item>

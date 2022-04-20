@@ -7,7 +7,7 @@ export interface IGlobalModel {
 
 export interface IGlobalQueryModel {
     pageSize:number
-    pageNum:number
+    pageNo:number
     keywords?:string | null
     startTime?:string | null
     endTime?:string| null

@@ -16,7 +16,7 @@ export function* fetchLoginAction(payload: IAction<ILoginFormOptions>) {
     try {
         const response: IJsonResult<ILoginInfo> = yield call(loginAction, payload.payload)
         if (response.code === 200) {
-            yield put(setAuthInfo(response.data.token))
+            yield put(setAuthInfo(response.data.accessToken))
             history.push("/app/dashboard")
             openNotification({ type: "success", message: "登录成功", description: "可以开始为所欲为啦！" })
         }

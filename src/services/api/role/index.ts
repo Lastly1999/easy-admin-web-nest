@@ -4,7 +4,7 @@ import { IRoleForm } from "@/screen/RolePanel/components/RoleModalForm/RoleModal
 
 // 获取角色列表
 export const getSysRoles = () => {
-    return httpRequest.get<unknown, { roles: IRoleListItem[] }>("/role/role")
+    return httpRequest.get<unknown, IRoleListItem[]>("/role/role")
 }
 
 // 修改角色启用状态
@@ -15,4 +15,9 @@ export const updateSysRoleStatus = (roleId: number, status: 1 | 0) => {
 // 新增角色
 export const putSysRole = (data: IRoleForm) => {
     return httpRequest.put<IRoleForm, null>(`/role/role`, data)
+}
+
+// 新增角色
+export const getSysRoleInfo = (roleId: number) => {
+    return httpRequest.get<null, any>(`/role/role/${roleId}`)
 }

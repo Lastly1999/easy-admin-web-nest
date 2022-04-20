@@ -52,18 +52,6 @@ const Login: React.FC = () => {
             } catch (err) {
                 console.log(err)
             }
-            // navigate("/app/dashboard")
-            // try {
-            //     const params: ILoginFormOptions = { ...values, captchaId: loginForm.captchaId }
-            //     const { code, data } = await loginAction(params)
-            //     if (code === 200) {
-            //         // dispatch(setToken(data.accessToken))
-            //         navigate("/app/dashboard")
-            //         openNotification({ type: "success", message: "登录成功", description: "可以开始为所欲为啦！" })
-            //     }
-            // } finally {
-            //     getGraphic()
-            // }
         }
     }
 
@@ -84,11 +72,11 @@ const Login: React.FC = () => {
                     </Form.Item>
                     <Form.Item name="code" rules={[{ required: true, message: "请输入图形验证码!" }]}>
                         <Input prefix={<UserOutlined />} suffix={<div className="cap-code" onClick={getGraphic}>
-                            <img style={{ height: '30px' }} src={loginForm.codeBase} />
+                            <div dangerouslySetInnerHTML={{ __html: loginForm.codeBase }}></div>
                         </div>} />
                     </Form.Item>
                     <Form.Item name="remember" valuePropName="checked">
-                        <Checkbox style={{ color: "#fff" }}>记住我</Checkbox>
+                        <Checkbox style={{ color: "#fff" }}>记住我</Checkbox> 
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit" block>

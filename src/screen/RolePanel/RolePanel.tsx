@@ -55,7 +55,7 @@ const RolePanel: React.FC<IRolePanelProps> = () => {
     const fetchRoleList = async () => {
         setroleTableLoading(true)
         const ret = await getSysRoles()
-        if (ret.code === 200) setRoleList(ret.data.roles)
+        if (ret.code === 200) setRoleList(ret.data)
         setroleTableLoading(false)
     }
 

@@ -19,14 +19,14 @@ const Page: React.FC = () => {
     }, [selection])
 
     const initSystemApis = () => {
-        if (history.location.pathname !== "/login") {
-            if (!selection.authReducer.roleMenus) {
-                dispatch(fetchSystemRoleMenus())
-            }
-            if (!selection.systemReducer.sysIcons) {
-                dispatch(fetchSystemIcons())
-            }
-        }
+        // if (history.location.pathname !== "/login") {
+        //     if (!selection.authReducer.roleMenus) {
+        //         dispatch(fetchSystemRoleMenus())
+        //     }
+        //     if (!selection.systemReducer.sysIcons) {
+        //         dispatch(fetchSystemIcons())
+        //     }
+        // }
     }
 
     useEffect(() => {

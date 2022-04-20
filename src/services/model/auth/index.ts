@@ -8,7 +8,7 @@ export type ILoginForm = {
 }
 
 export type ILoginInfo = {
-    token: string
+    accessToken: string
 }
 
 export type IGraphicCodeInfo = {

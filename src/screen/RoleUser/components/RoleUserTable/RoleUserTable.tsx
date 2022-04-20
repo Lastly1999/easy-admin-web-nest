@@ -12,7 +12,7 @@ const RoleUserTable: React.FC = () => {
 
     const [queryForm, setQueryForm] = useState<IGlobalQueryModel>({
         pageSize: 10,
-        pageNum: 1,
+        pageNo: 1,
         keywords: '',
         startTime: '',
         endTime: '',
@@ -27,9 +27,9 @@ const RoleUserTable: React.FC = () => {
         console.log('log')
     }
 
-    const generateRoleListSelect = (role: IUserRoleItem[], data: IRoleUsersItem) => {
+    const generateRoleListSelect = (roles: IUserRoleItem[], data: IRoleUsersItem) => {
         return (
-            <Select mode="multiple" fieldNames={{ label: "roleName", value: "roleId" }} options={role} style={{ width: '100%' }} placeholder="请选择角色" value={data.roleId} onChange={roleSwitchEdit} />
+            <Select mode="multiple" fieldNames={{ label: "roleName", value: "roleId" }} options={roles} style={{ width: '100%' }} placeholder="请选择角色" value={data.roleId} onChange={roleSwitchEdit} />
         )
     }
 
@@ -45,13 +45,13 @@ const RoleUserTable: React.FC = () => {
         { title: '用户头像', dataIndex: 'userAvatar', key: 'userAvatar' },
         { title: '用户昵称', dataIndex: 'nikeName', key: 'nikeName' },
         { title: '启用状态', dataIndex: 'status', key: 'status', render: generateRoleListSwitch },
-        { title: '用户角色', dataIndex: "role", key: "role", render: generateRoleListSelect },
+        { title: '用户角色', dataIndex: "roles", key: "roles", render: generateRoleListSelect },
     ]
 
     const fetchSystemRoleUsers = async () => {
         const { code, data } = await getSystemAllRoleUsers(queryForm)
         if (code === 200) {
-            setRoleUserList(data.users)
+            setRoleUserList(data)
         }
     }
 
