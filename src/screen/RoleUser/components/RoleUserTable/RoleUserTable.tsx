@@ -1,22 +1,15 @@
 
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Select, Switch, Table } from "antd"
 import { ColumnsType } from "antd/lib/table"
-import { getSystemAllRoleUsers } from "@/services/api/user"
-import { IGlobalQueryModel } from "@/services/model/global"
 import { IRoleUsersItem, IUserRoleItem } from "@/services/model/user"
 
-const RoleUserTable: React.FC = () => {
+export type IRoleUserProps = {
+    loading:boolean
+    data: IRoleUsersItem[]
+}
 
-    const [roleUserList, setRoleUserList] = useState<IRoleUsersItem[]>([])
-
-    const [queryForm, setQueryForm] = useState<IGlobalQueryModel>({
-        pageSize: 10,
-        pageNum: 1,
-        keywords: '',
-        startTime: '',
-        endTime: '',
-    })
+const RoleUserTable: React.FC<IRoleUserProps> = (props) => {
 
     const updateStatus = (roleId: number, status: boolean) => {
         console.log(roleId)
@@ -48,19 +41,9 @@ const RoleUserTable: React.FC = () => {
         { title: '用户角色', dataIndex: "role", key: "role", render: generateRoleListSelect },
     ]
 
-    const fetchSystemRoleUsers = async () => {
-        const { code, data } = await getSystemAllRoleUsers(queryForm)
-        if (code === 200) {
-            setRoleUserList(data.users)
-        }
-    }
-
-    useEffect(() => {
-        fetchSystemRoleUsers()
-    }, [])
-
+    
     return (
-        <Table className="custom-table" columns={columns} dataSource={roleUserList} />
+        <Table className="custom-table" loading={props.loading} columns={columns} dataSource={props.data} />
     )
 }
 
