@@ -19,14 +19,14 @@ export type IRoleForm = {
 
 const RoleModalForm: React.FC<IRoleModalFormProps> = (props) => {
 
+    const [roleModalForm, setRoleModalForm] = useState()
+
     const formRules: IFormRules = {
         roleName: [{ required: true, message: "角色名称不能为空" }],
         describe: [{ required: true, message: "角色别名不能为空" }]
     }
 
     const [roleForm] = Form.useForm<IRoleForm>()
-
-    const [roleModalForm, setRoleModalForm] = useState({})
 
     const onConfirm = () => roleForm.submit()
 
@@ -39,18 +39,25 @@ const RoleModalForm: React.FC<IRoleModalFormProps> = (props) => {
     }
 
     useEffect(() => {
-        const fetchSysRoleInfo = async () => {
-            if (props.roleId) {
-                const ret = await getSysRoleInfo(props.roleId)
-                setRoleModalForm(ret.data)
-            }
-        }
-        fetchSysRoleInfo()
+        return () => roleForm.resetFields() // 副作用清除时 清空表单信息
+    }, [])
+
+    useEffect(() => {
+        initFormData()
     }, [props.roleId])
+
+    // 获取表单数据 / 编辑 / 新增
+    const initFormData = async () => {
+        if (props.roleId) {
+            const ret = await getSysRoleInfo(props.roleId)
+            setRoleModalForm(() => ({ ...ret.data }))
+            roleForm.setFieldsValue(ret.data)
+        }
+    }
 
     return (
         <Modal centered destroyOnClose title={props.title} visible={props.visible} onOk={onConfirm} onCancel={onCancel} width={600} >
-            <Form name="roleForm" scrollToFirstError form={roleForm} initialValues={roleModalForm} onFinish={onFinish} preserve={false}>
+            <Form name="roleForm" scrollToFirstError initialValues={roleModalForm} form={roleForm} onFinish={onFinish} preserve={false}>
                 <Form.Item name="roleName" label="角色名称" rules={formRules.roleName}>
                     <Input placeholder="请输入角色名称" />
                 </Form.Item>

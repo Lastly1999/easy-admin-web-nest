@@ -15,7 +15,7 @@ const RoleUser: React.FC = () => {
 
     const [queryForm, setQueryForm] = useState<IGlobalQueryModel>({
         pageSize: 10,
-        pageNum: 1,
+        pageNo: 1,
         keywords: '',
         startTime: '',
         endTime: '',
@@ -27,7 +27,7 @@ const RoleUser: React.FC = () => {
         setRoleTableLoading(true)
         const { code, data } = await getSystemAllRoleUsers(queryForm)
         if (code === 200) {
-            setRoleUserList(data.users)
+            setRoleUserList(data)
         }
         setRoleTableLoading(false)
     }

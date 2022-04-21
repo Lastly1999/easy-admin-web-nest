@@ -3,6 +3,7 @@ import React from "react"
 import { Select, Switch, Table } from "antd"
 import { ColumnsType } from "antd/lib/table"
 import { IRoleUsersItem, IUserRoleItem } from "@/services/model/user"
+import { getSystemAllRoleUsers } from "@/services/api/user"
 
 export type IRoleUserProps = {
     loading:boolean
@@ -41,20 +42,8 @@ const RoleUserTable: React.FC<IRoleUserProps> = (props) => {
         { title: '用户角色', dataIndex: "roles", key: "roles", render: generateRoleListSelect },
     ]
 
-
-    const fetchSystemRoleUsers = async () => {
-        const { code, data } = await getSystemAllRoleUsers(queryForm)
-        if (code === 200) {
-            setRoleUserList(data)
-        }
-    }
-
-    useEffect(() => {
-        fetchSystemRoleUsers()
-    }, [])
-
     return (
-        <Table className="custom-table" loading={props.loading} columns={columns} dataSource={props.data} />
+        <Table className="custom-table" columns={columns} loading={props.loading} dataSource={props.data} />
     )
 }
 

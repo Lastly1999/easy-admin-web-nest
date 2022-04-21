@@ -7,7 +7,7 @@ import RoleTable from "./components/RoleTable/RoleTable"
 import RoleModalForm, { IRoleForm } from "./components/RoleModalForm/RoleModalForm"
 
 // apis
-import { getSysRoles, putSysRole, updateSysRoleStatus } from "@/services/api/role"
+import { getSysRoleInfo, getSysRoles, putSysRole, updateSysRoleStatus } from "@/services/api/role"
 import { openMessage } from "@/utils/antd/antd"
 import { IRoleListItem } from "@/services/model/role"
 
